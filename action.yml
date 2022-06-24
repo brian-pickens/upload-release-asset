@@ -1,25 +1,26 @@
-name: 'Upload a Release Asset'
-description: 'Upload a release asset to an existing release in your repository'
-author: 'GitHub'
+# https://help.github.com/en/articles/metadata-syntax-for-github-actions
+name: "Upload Release Assets"
+description: "Github Action for uploading assets to existing releases"
+author: "Brian Pickens and contributors"
 inputs:
-  upload_url:
-    description: 'The URL for uploading assets to the release'
+  release_id:
+    description: "The release_id of the release to update"
     required: true
-  asset_path:
-    description: 'The path to the asset you want to upload'
+  files:
+    description: "Newline-delimited list of path globs for asset files to upload"
     required: true
-  asset_name:
-    description: 'The name of the asset you want to upload'
+  fail_on_unmatched_files:
+    description: "Fails if any of the `files` globs match nothing. Defaults to false"
     required: true
-  asset_content_type:
-    description: 'The content-type of the asset you want to upload. See the supported Media Types here: https://www.iana.org/assignments/media-types/media-types.xhtml for more information'
-    required: true
-outputs:
-  browser_download_url:
-    description: 'The URL users can navigate to in order to download the uploaded asset'
+  token:
+    description: "Authorized secret GitHub Personal Access Token. Defaults to github.token"
+    required: false
+    default: ${{ github.token }}
+env:
+  "GITHUB_TOKEN": "As provided by Github Actions"
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node16"
+  main: "dist/index.js"
 branding:
-  icon: 'package'
-  color: 'gray-dark'
+  color: "green"
+  icon: "package"
